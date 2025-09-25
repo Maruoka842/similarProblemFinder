@@ -1,0 +1,29 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    transition: all 0.3s ease; /* 通常状態への復帰も滑らかに */
+}
+
+/* スタイルを分かりやすくするためのCSSを追加 */
+.card.disabled {
+    opacity: 0.6;
+    background-color: #f8f9fa; /* 背景を少しグレーに */
+    border: 1px dashed #adb5bd; /* 枠線を破線に */
+    /* pointer-events: none; */ /* クリックは個別に制御 */
+}
+
+.list-group-item {
+    transition: background-color 0.2s ease-in-out;
+}
+
+.list-group-item:hover {
+    background-color: #f1f3f5;
+}
+
+.navbar-brand {
+    font-weight: 600;
+}

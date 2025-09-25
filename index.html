@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtCoder 類似問題検索</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">AtCoder 類似問題検索</a>
+        </div>
+    </nav>
+
+    <main class="container my-4">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <!-- New Card for Text Input -->
+                <div class="card mb-4" id="text-search-card">
+                    <div class="card-body">
+                        <h5 class="card-title">テキストを入力して検索</h5>
+                        <div id="model-status" class="alert alert-info">
+                            AIモデルの準備中です... (初回利用時は数分かかることがあります)
+                            <div class="progress mt-2" style="height: 20px;">
+                                <div id="model-progress-bar" class="progress-bar" role="progressbar" style="width: 0%">0%</div>
+                            </div>
+                        </div>
+                        <textarea id="text-input" class="form-control" rows="5" placeholder="ここに問題文や解説を貼り付けてください..." disabled></textarea>
+                        <div class="mt-3">
+                            <label for="embedding-type-select-text" class="form-label">比較対象</label>
+                            <select id="embedding-type-select-text" class="form-select">
+                                <option value="statement_embedding_minilm" selected>問題文で比較 (MiniLM)</option>
+                                <option value="editorial_embedding_minilm">解説で比較 (MiniLM)</option>
+                            </select>
+                        </div>
+                        <p class="form-text mt-2">※この検索ではMiniLMモデルが使用されます。</p>
+                        <button id="text-search-btn" class="btn btn-primary mt-3 w-100" disabled>この内容で類似問題を検索</button>
+                    </div>
+                </div>
+
+                <div class="card" id="problem-search-card">
+                    <div class="card-body">
+                        <h5 class="card-title">既存の問題から検索</h5>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-8">
+                                <label for="problem-search" class="form-label">検索</label>
+                                <div class="position-relative">
+                                    <input type="text" id="problem-search" class="form-control" placeholder="下の基準を選んで入力..." autocomplete="off" disabled>
+                                    <div id="search-suggestions" class="list-group position-absolute w-100" style="z-index: 1000;"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="embedding-type-select-problem" class="form-label">比較の基準</label>
+                                <select id="embedding-type-select-problem" class="form-select">
+                                    <option value="statement_embedding_gemma" selected>問題文 (Gemma)</option>
+                                    <option value="editorial_embedding_gemma">解説 (Gemma)</option>
+                                    <option value="code_gemma">コード (Gemma)</option>
+                                    <option value="statement_embedding_minilm">問題文 (MiniLM)</option>
+                                    <option value="editorial_embedding_minilm">解説 (MiniLM)</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 mt-2">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="toggle-tags-visibility" checked>
+                                    <label class="form-check-label" for="toggle-tags-visibility">タグを表示</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="loading-indicator" class="mt-3 text-center" style="display: none;">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p>類似度を計算中...</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div id="results" class="mt-4">
+                    <!-- 結果はここに表示されます -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
