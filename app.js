@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadingIndicator.style.display = 'block';
         resultsDiv.innerHTML = '';
         const vector = await AI.vectorize(text);
-        const similarProblems = findSimilarProblems(vector, embeddingType);
+        const similarProblems = findSimilarProblems(vector, embeddingTypeSelectText.value);
         renderProblemResults(similarProblems);
         loadingIndicator.style.display = 'none';
     });
